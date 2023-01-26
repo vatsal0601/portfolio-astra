@@ -1,0 +1,50 @@
+---
+import "@fontsource/inter";
+import "@fontsource/jetbrains-mono";
+
+export interface Props {
+  title: string;
+  description: string;
+  keywords: string;
+  image: string;
+}
+
+const { title, description, keywords, image } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+    <meta name="author" content="Vatsal Sakariya" />
+    <meta charSet="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta property="og:site_name" content="Vatsal Sakariya" />
+    <meta property="og:title" content={title} />
+    <meta property="og:type" content="article" />
+    <meta property="article:author" content="Vatsal Sakariya" />
+    <meta property="profile:first_name" content="Vatsal" />
+    <meta property="profile:last_name" content="Sakariya" />
+    <meta property="article:section" content="Technology" />
+    <meta property="article:tag" content={keywords} />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:secure_url" content={image} />
+    <meta property="og:image:alt" content={title} />
+    <meta property="og:description" content={description} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={image} />
+    <meta name="twitter:site" content="@vatsal0601" />
+    <meta name="twitter:creator" content="@vatsal0601" />
+    <meta property="og:url" content="https://vatsalsakariya.vercel.app/" />
+  </head>
+  <body>
+    <article
+      class="prose prose-zinc mx-auto prose-headings:scroll-m-20 prose-a:font-semibold prose-a:decoration-blue-600 prose-a:underline-offset-4 hover:prose-a:decoration-2 prose-img:rounded-md dark:prose-invert dark:prose-a:decoration-blue-500 lg:prose-lg lg:prose-headings:scroll-m-24 xl:mx-0"
+    >
+      <slot />
+    </article>
+  </body>
+</html>
