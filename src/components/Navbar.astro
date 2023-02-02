@@ -1,0 +1,50 @@
+---
+import ThemeToggle from "./ThemeToggle";
+import MobileMenu from "./MobileMenu";
+
+const pageLinks = [
+  { name: "Home", link: "/" },
+  { name: "About", link: "/about" },
+  { name: "Project", link: "/project" },
+  { name: "Blog", link: "/blog" },
+];
+
+const pathname = new URL(Astro.request.url).pathname;
+---
+
+<nav class="container relative flex items-center justify-between py-4" role="navigation">
+  <a
+    href="/"
+    class="text-3xl font-bold tracking-tight text-zinc-900 transition-colors active:text-blue-600 dark:text-zinc-200 lg:text-4xl"
+  >
+    <img
+      src="/vatsal.JPG"
+      alt="Vatsal Sakariya"
+      class="h-10 w-10 rounded-full border border-zinc-200 bg-zinc-50 p-0.5 shadow-lg backdrop-blur dark:border-zinc-600 dark:bg-zinc-700"
+    />
+  </a>
+  <ul
+    class="hidden items-center gap-6 rounded-full border border-zinc-200 bg-zinc-50 px-6 py-1.5 shadow-lg dark:border-zinc-600 dark:bg-zinc-700 md:inline-flex"
+  >
+    {
+      pageLinks.map(({ name, link }) => (
+        <li>
+          <a
+            href={link}
+            class={`${
+              pathname == link
+                ? "text-blue-600 dark:text-zinc-200"
+                : "text-zinc-600 dark:text-zinc-400"
+            } text-sm font-normal transition-colors active:text-blue-600`}
+          >
+            {name}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+  <div class="flex items-center gap-2">
+    <MobileMenu pageLinks={pageLinks} client:media="(max-width: 768px)" />
+    <ThemeToggle client:only="preact" />
+  </div>
+</nav>

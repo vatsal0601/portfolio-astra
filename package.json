@@ -11,12 +11,14 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/mdx": "^0.15.0",
     "@fontsource/inter": "^4.5.15",
     "@fontsource/jetbrains-mono": "^4.5.12",
-    "astro": "^2.0.1"
+    "astro": "^2.0.1",
+    "preact": "^10.11.3"
   },
   "devDependencies": {
+    "@astrojs/mdx": "^0.15.1",
+    "@astrojs/preact": "^0.2.0",
     "@astrojs/tailwind": "^3.0.0",
     "@tailwindcss/typography": "^0.5.9",
     "prettier": "^2.8.3",

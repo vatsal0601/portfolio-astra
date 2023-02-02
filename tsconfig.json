@@ -9,6 +9,11 @@
       "@layouts/*": [
         "src/layouts/*"
       ]
-    }
+    },
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact",
+    "types": [
+      "preact"
+    ]
   }
 }

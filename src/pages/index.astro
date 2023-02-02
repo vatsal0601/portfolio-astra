@@ -2,8 +2,41 @@
 import Layout from "@layouts/Layout.astro";
 ---
 
-<Layout title="Welcome to Astro.">
-  <main>
-    <h1 class="text-4xl text-blue-600">Hello, World!</h1>
+<Layout>
+  <main class="container mt-10">
+    <section class="grid-col-1 grid gap-3 md:grid-cols-2">
+      <div
+        class="h-32 w-32 rounded-full border-2 border-blue-600 p-1 sm:h-56 sm:w-56 sm:p-2 md:place-self-center xl:h-96 xl:w-96 xl:p-3"
+      >
+        <img src="/vatsal-2.jpg" alt="Vatsal Sakariya's image" class="rounded-full object-cover" />
+      </div>
+      <div class="space-y-1 lg:space-y-3 lg:self-center">
+        <h1 class="text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-200 xl:text-5xl">
+          Hi 👋🏻, I&apos;m Vatsal.
+        </h1>
+        <p class="prose prose-zinc dark:prose-invert lg:prose-lg">
+          A front-end developer, currently studying at Nirma University. This is my personal
+          website, where you will find all the stuff I am currently doing and thinking about.
+        </p>
+        <div class="flex items-center space-x-3">
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="/resume.pdf"
+            class="inline-flex items-center space-x-1 rounded-md bg-blue-200 px-3 py-1 text-sm font-semibold text-blue-700 transition-colors active:bg-blue-300 lg:text-base"
+          >
+            <!-- <DownloadIcon class="h-4 w-4 lg:h-5 lg:w-5" /> -->
+            <span>Download Resume</span>
+          </a>
+          <a
+            href="/about"
+            class="inline-flex items-center space-x-1 text-sm text-blue-600 dark:text-blue-500 lg:text-base"
+          >
+            <span>More about me</span>
+            <!-- <ArrowNarrowRightIcon class="h-4 w-4 lg:h-5 lg:w-5" /> -->
+          </a>
+        </div>
+      </div>
+    </section>
   </main>
 </Layout>
