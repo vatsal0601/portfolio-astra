@@ -11,8 +11,6 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@fontsource/inter": "^4.5.15",
-    "@fontsource/jetbrains-mono": "^4.5.12",
     "astro": "^2.0.1",
     "preact": "^10.11.3"
   },

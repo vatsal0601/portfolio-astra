@@ -5,23 +5,13 @@ const pageLinks = [
   { name: "Project", link: "/project" },
   { name: "Blog", link: "/blog" },
 ];
-
-const socialLinks = [
-  { name: "GitHub", link: "https://github.com/vatsal0601" },
-  {
-    name: "LinkedIn",
-    link: "https://www.linkedin.com/in/vatsal-sakariya",
-  },
-  { name: "Twitter", link: "https://twitter.com/vatsal0601" },
-  { name: "Instagram", link: "https://www.instagram.com/vatsal_sakariya" },
-];
 ---
 
 <footer
-  class="mt-auto space-y-3 border-t border-zinc-200 bg-white py-3 text-center dark:border-zinc-800 dark:bg-zinc-900 print:hidden"
+  class="mt-auto border-t border-zinc-200 bg-white py-4 text-center dark:border-zinc-800 dark:bg-zinc-900 print:hidden"
 >
-  <div class="flex justify-evenly">
-    <div class="flex flex-col space-y-3">
+  <div class="container space-y-4 md:flex md:items-center md:justify-between md:space-y-0">
+    <div class="items-conter flex justify-center gap-4 md:justify-start">
       {
         pageLinks.map(({ name, link }) => (
           <a
@@ -33,22 +23,8 @@ const socialLinks = [
         ))
       }
     </div>
-    <div class="flex flex-col space-y-3">
-      {
-        socialLinks.map(({ name, link }) => (
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href={link}
-            class="text-sm text-zinc-600 transition-colors active:text-blue-600 dark:text-zinc-400 lg:text-base"
-          >
-            {name}
-          </a>
-        ))
-      }
-    </div>
+    <p class="text-xs font-light text-zinc-600 dark:text-zinc-400 lg:text-sm">
+      Made with <span class="text-red-600">&hearts;</span> by Vatsal Sakariya
+    </p>
   </div>
-  <p class="text-sm font-light text-zinc-600 dark:text-zinc-400 lg:text-base">
-    &#169; Vatsal Sakariya
-  </p>
 </footer>

@@ -41,11 +41,11 @@ const MobileMenu: FunctionComponent<Props> = ({ pageLinks }) => {
           tabIndex={0}
           onKeyDown={handleKeyPress}
           ref={backdropRef}
-          className="fixed inset-0 bg-zinc-900/50 backdrop-blur focus:outline-none"
+          className="fixed inset-0 z-40 bg-zinc-900/50 backdrop-blur focus:outline-none"
         >
           <div
             ref={modalRef}
-            className="mx-5 mt-5 rounded-lg border border-zinc-200 bg-zinc-50 p-5 text-zinc-600 shadow-lg dark:border-zinc-600 dark:bg-zinc-700 dark:text-zinc-200"
+            className="z-50 mx-5 mt-5 rounded-lg border border-zinc-200 bg-zinc-50 p-5 text-zinc-600 shadow-lg dark:border-zinc-600 dark:bg-zinc-700 dark:text-zinc-200"
           >
             <div className="flex items-center justify-between">
               <span className="text-sm font-semibold">Navigation</span>
