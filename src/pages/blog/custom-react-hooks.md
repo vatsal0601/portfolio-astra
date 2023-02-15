@@ -1,0 +1,105 @@
+## What are custom Hooks?
+
+A custom Hook allows you to extract some component's logic into a reusable function. A custom Hook is a JavaScript function whose name starts with use and calls can other Hooks. By creating custom Hooks we are just refactoring our code to make it reusable. If you want to know more about React Hooks you can check my [previous post](/blog/61d5118805c061b0e66894a2) which comprises all the built-in Hooks which React provides.
+
+> **Do I have to name my custom Hooks starting with "use"?** Please do. This convention is very important. Without it, we wouldn’t be able to automatically check for violations of [rules of Hooks](https://reactjs.org/docs/hooks-rules.html) because we couldn’t tell if a certain function contains calls to Hooks inside of it.
+
+## Creating custom useFetch Hook
+
+In this post, we will create a custom data fetching Hook. So, let's start by creating a file named `useFetch.jsx`.
+
+Now in that file first we will import the `useState` and `useEffect` Hook from React.
+
+```js
+import { useState, useEffect } from "react";
+```
+
+Create a function named useFetch which will take two parameters `url` and `options` and then export it.
+
+```js
+export const useFetch = (url, options) => {};
+```
+
+In this function with the help of the `useState` Hook we will create three states; `loading` which will be a Boolean state for telling the user if the data is loading on not and `data` for getting the data from the API and `error` if something went wrong while fetching data from the API.
+
+```js
+const [loading, setLoading] = useState(false);
+const [data, setData] = useState(null);
+const [error, setError] = useState(null);
+```
+
+Create an async function named fetchData which we will use inside the `useEffect` Hook to fetch data.
+
+```js
+useEffect(() => {
+	const fetchData = async () => {
+		try {
+			setLoading(true);
+			const results = await fetch(url, options);
+			const data = await results.json();
+			setData(data.data);
+		} catch (err) {
+			setError(err.message);
+		} finally {
+			setLoading(false);
+		}
+	};
+	fetchData();
+}, [url, options]);
+```
+
+Now we just have to return an array or object which will contain all three states.
+
+```js
+return [loading, data, error];
+```
+
+Now by putting everything together we get:
+
+```js
+import { useState, useEffect } from "react";
+
+export const useFetch = (url, options) => {
+	const [loading, setLoading] = useState(false);
+	const [data, setData] = useState(null);
+	const [error, setError] = useState(null);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				setLoading(true);
+				const results = await fetch(url, options);
+				const data = await results.json();
+				setData(data.data);
+			} catch (err) {
+				setError(err.message);
+			} finally {
+				setLoading(false);
+			}
+		};
+		fetchData();
+	}, [url, options]);
+
+	return [loading, data, error];
+};
+```
+
+## Using the useFetch Hook
+
+For using the newly created custom Hook in your app you just have to import and call it.
+
+```js
+import { useFetch } from "./useFetch";
+
+const App = () => {
+	const [loading, data, error] = useFetch(url, options);
+
+	if (loading) return <p>Loading...</p>;
+
+	if (error) return <p>Oops, someting went wrong {error}</p>;
+
+	return <p>{JSON.stringify(data)}</p>;
+};
+
+export default App;
+```

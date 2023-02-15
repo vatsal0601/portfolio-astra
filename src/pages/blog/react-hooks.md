@@ -1,0 +1,255 @@
+## What are React Hooks?
+
+Hooks were introduced in React 16.8 to take full advantage of certain React features before React 16.8 developers were required to write class components. With React Hooks, you can extract stateful logic from a component so it can be tested independently and reused.
+
+Hooks allow you to reuse stateful logic without changing your component hierarchy. This makes it easy to share Hooks among many components or with the community. _Note: When calling Hooks in function components, they must be called at the top level to ensure that they are called in the same order at every render._
+
+## Types of React Hooks
+
+### useState Hook
+
+It is the most often used Hook in building React applications. The main motive of this Hook is to handle the reactive data, when the data changes in the application it re-renders the UI (component). Any data that changes in the application is called state.
+
+```js
+import { useState } from "react";
+
+const [counter, setCounter] = useState(0);
+```
+
+In the above code snippet first, we import the `useState` Hook from React; the Hook can be used by calling the `useState` function and the initial state can be set by passing the value as a parameter. The `useState` function returns an array that consists of two things the current state value and a function to update the state value.
+
+### useEffect Hook
+
+This Hook allows us to perform side-effects like data fetching and state or variable changes in functional components.
+
+```js
+import { useEffect, useState } from "react";
+
+const RenderCount = () => {
+	const [counter, setCounter] = useState(0);
+
+	useEffect(() => {
+		const id = setInterval(() => {
+			setCounter((counter) => counter + 1);
+		}, 1000);
+
+		return () => clearInterval(id);
+	}, []);
+
+	return <h1>{counter}</h1>;
+};
+```
+
+In the above code snippet first, we import the `useEffect` Hook. It takes 2 arguments:
+
+1. A function that will instruct what to run when a state changes
+2. A dependency array that can contain a list of variables that tells the Hook to run every time its value is updated. If not supplied, the Hook will run after every render. If an empty dependency array is passed then the Hook runs only one time i.e when the page loads
+
+For the Hook to run right before the component unmounts, simply use the return function. In the above snippet, the return function is executed only when the page changes.
+
+### useContext Hook
+
+This Hook is used along with `useState` to share state between different components rather than doing _prop drilling_ by passing state as props from the main component. Let's look at an example of how this Hook works.
+
+#### Step 1: Create Context
+
+First, create a context to use our Hook. For example, we make a UserContext get the value of the current user:
+
+```js
+import { createContext } from "react";
+
+const users = {
+	user1: {
+		name: "Sherlock Holmes",
+		occupation: "Detective",
+	},
+	user2: {
+		name: "James Moriarty",
+		occupation: "Professor",
+	},
+};
+
+export const UserContext = createContext(users.user1);
+```
+
+In the above snippet, we create a context object by using `createContext` and passing the default value as `users.users1`.
+
+#### Step 2: Context Provider
+
+Every context has a Provider, which allows its children components to subscribe to changes in the context. It passes the `value` of the context and its consuming (children) components will re-render when the `value` changes.
+
+```js
+const App = () => {
+	return (
+		<UserContext.Provider value={users.user1}>
+			<UserProfile />
+		</UserContext.Provider>
+	);
+};
+```
+
+In the above snippet, the UserProfile is the context-consuming component that will be subscribed to changes in `value`.
+
+#### Step 3: Get Current Context
+
+Finally, we get to see the `useContext` Hook in action. Let's say the UserProfile component displays the name and occupation of the current user in the context.
+
+```js
+import { useContext } from "react";
+import { userContext } from "./App";
+
+const UserProfile = () => {
+    const user = useContext(UserContext);
+  return (
+    <div>
+      <p>I am ${user.name} and my occupation is a ${user.occupation}!</p>
+    </div>
+}
+```
+
+In the UserProfile component, firstly we import the Hook and context then get the current user value using the Hook to display the current user's properties. _Note: the Hook only accepts a single argument, and it must be a context object, not the Provider or any other component._
+
+### useRef Hook
+
+useRef returns a mutable object with a single property: current, that stores the value of the reference element like so:
+
+```js
+{
+	current: ReactElementReference;
+}
+```
+
+This stored value persists for the entire lifetime of the component and will not re-render the component when the value of current is mutated. Hence, this Hook is useful for storing and updating values that are frequently changing because as mentioned [above](#usestate-hook), the `useState` Hook will trigger a re-render on every state update.
+
+Another reason to use this Hook is when you want to imperatively access a DOM element, and alter its state according to what you want it to do. To do this, simply add a ref attribute in an element created in its render method. For example, `<div ref={myRef}>`. Now, React can access this `<div>` element directly.
+
+```js
+import { useRef } from "react";
+
+const inputRef = useRef(null);
+```
+
+Now, we can use this Hook to access the input element imperatively by having the ref attribute of `<input>` equal to `inputRef`:
+
+```js
+return (
+	<div>
+		<input ref={inputRef} type="text" />
+		<button onClick={onButtonClick}>SUBMIT</button>
+	</div>
+);
+```
+
+Accessing an element this way is how we can access methods that we normally can do with `document.getElementById()` in vanilla JavaScript.
+
+In short, use `useRef` when you want to:
+
+1. Store and update mutable information without triggering re-renders all the time
+2. Access variables that are persisted across re-renders
+3. Imperatively access DOM nodes via refs to perform some functions
+
+### useImperativeHandle Hook
+
+This Hook is used with `useRef`. It hides the DOM node reference from its parent component and exposes only the properties you want.
+
+The Hook accepts a `ref` object and a handler function. This handler function specifies the properties of the `ref` that its parent component can access. So the parent of the `ref` will not be able to access the entire `ref` object; just the ones in the handler function. The Hook must be used with `forwardRef` so that the ref attribute can be passed to another component. You can read more about `forwardRef` [here](https://reactjs.org/docs/forwarding-refs.html).
+
+```js
+import { useRef, useImperativeHandle } from "react";
+
+const FancyInput = (props, ref) => {
+  const inputRef = useRef();
+
+  useImperativeHandle(ref, () => ({
+    focus: () => {
+      inputRef.current.focus();
+    }
+  }));
+
+  return <input ref={inputRef} ... />;
+}
+
+FancyInput = forwardRef(FancyInput);
+```
+
+In the above snippet, we have a `FancyInput` component and its `<input>` element as its `ref` object. The `useImperativeHandle` Hook then takes this `ref` object as its 1st argument and returns an object in its handler function as its 2nd argument. This object includes `focus()` method of the current property of the `ref`.
+
+Let's say `<App/>` is the parent of `FancyInput`. It will only be able to access `inputRef.current.focus()` instead of the input element itself. Whereas `FancyInput` itself gets access to the entire `inputRef`.
+
+### useReducer Hook
+
+For those who are familiar with Redux, the `useReducer` Hook allows React to access reducer functions for state management. If you are not from a Redux background, a simple way to describe this Hook is that it is an alternative to the `useState` Hook. The difference is that it allows for more complex logic and state updates that contain multiple sub-values.
+
+This Hook typically accepts 2 arguments: **a reducer function** and an **initialState**. Optionally, it accepts a 3rd argument, an `init` function.
+
+```js
+import { useReducer } from "react";
+
+const [state, dispatch] = useReducer(reducer, initialState);
+```
+
+#### Reducer Function
+
+A "reducer" is a function that accepts a state and an action, then returns a value.
+
+```js
+const reducer = (state, action) => {
+	return state + action;
+};
+```
+
+This is how the Hook can update the values of its state. The `action` determines how the value of the `state` will change. In the above snippet, the new value of the `state` will be the sum of the initial `state` and `action`. _Note: the reducer function must be pure. This means that the function returns the same value if the same arguments are passed and there are no side effects._
+
+#### Dispatch Function
+
+The `dispatch` function is used to pass an action to the Hook's reducer. It dispatches the `action` to be used to update the value of `state`.
+
+```js
+<button onClick={() => dispatch(1)}>Add</button>
+```
+
+#### Lazy Initialization
+
+As mentioned earlier, the Hook optionally takes in a 3rd argument: init. `init` is a function that sets the initialState with `init(initialArg)`.
+
+```js
+const init = (initialState) => {
+	return initialState;
+};
+```
+
+### useCallback Hook
+
+This Hook is used to prevent unnecessary renders. `useCallback` Hook accepts 2 arguments: a callback function and an array of dependencies. It returns a **memoized** callback function when any value in the dependency array has changed.
+
+```js
+import { useCallback } from "react";
+
+// add - before
+const add = () => {
+	setNumber((number) => number + 1);
+};
+
+// add - after
+const add = useCallback(() => {
+	setNumber((number) => number + 1);
+}, [number]);
+```
+
+In the above snippet by wrapping the handler function inside the Hook prevents the unnecessary re-rendering behavior because it ensures the **same callback function reference** is returned when there is no change in their dependency.
+
+### useMemo Hook
+
+The `useMemo` is very similar to `useCallback`. But instead of returning a memoized callback, it returns a **memoized value**. The Hook takes in 2 arguments: a function and an array of dependencies. On every render, if there are no changes in the values of the dependencies, then useMemo returns the memoized value without re-executing the expensive function in the first argument. Hence, this is a useful Hook for **performance optimization** as it avoids having to re-compute expensive functions on every render.
+
+```js
+import { useMemo } from "react";
+
+const memoizedValue = useMemo(() => {
+	computeExpensiveValue(a, b);
+}, [a, b]);
+```
+
+Because this Hook is for performance optimization, you may be tempted to include it for every computational function or every variable in your app. However, instead of increasing performance, too much use of `useMemo` can have adverse effects on performance.
+
+According to React Docs, React may choose to "forget" some previously memoized values to free memory for off-screen components. After all, the `useMemo` helps to improve the speed of your app at the expense of memory usage. So including the Hook unnecessarily can result in both a slower app and too much memory used.
