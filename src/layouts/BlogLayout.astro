@@ -10,6 +10,7 @@ interface Frontmatter {
   createdAt: string;
   keywords: string;
   collection: string;
+  minutesRead: string;
 }
 
 export interface Props {
@@ -17,7 +18,7 @@ export interface Props {
 }
 
 const {
-  frontmatter: { title, excerpt, cover, createdAt, keywords, collection },
+  frontmatter: { title, excerpt, cover, createdAt, keywords, collection, minutesRead },
 } = Astro.props;
 ---
 
@@ -46,7 +47,7 @@ const {
           {excerpt}
         </p>
         <p class="text-center text-sm text-zinc-600 dark:text-zinc-400 lg:text-base">
-          {createdAt} &middot; 5 minute read
+          {createdAt} &middot; {minutesRead}
         </p>
       </section>
       <img src={cover} alt={title} class="aspect-video w-full rounded-lg" />
