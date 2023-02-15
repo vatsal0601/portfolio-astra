@@ -5,7 +5,10 @@ cover: "/images/cover/what-is-react.jpg"
 createdAt: "1st Jan 2023"
 keywords: "What is react"
 collection: "React"
+layout: "@layouts/BlogLayout.astro"
 ---
+
+import Counter from "@components/blog/Counter.tsx";
 
 ## What exactly is React?
 
@@ -157,6 +160,8 @@ const App = () => {
 export default App;
 ```
 
-![Counter App](https://vatsal0601-portfolio-blog.herokuapp.com/uploads/counter_app_5fa5d62c08.png)
+![Counter App](/images/misc/counter-app.png)
+
+<Counter client:visible />
 
 _Congratulations! you have successfully created your first react app._

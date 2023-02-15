@@ -3,26 +3,59 @@ import Head from "@components/Head.astro";
 import Navbar from "@components/Navbar.astro";
 import Footer from "@components/Footer.astro";
 
-export interface Props {
-  title?: string;
-  description?: string;
-  keywords?: string;
-  image?: string;
+interface Frontmatter {
+  title: string;
+  excerpt: string;
+  cover: string;
+  createdAt: string;
+  keywords: string;
+  collection: string;
 }
 
-const props = Astro.props;
+export interface Props {
+  frontmatter: Frontmatter;
+}
+
+const {
+  frontmatter: { title, excerpt, cover, createdAt, keywords, collection },
+} = Astro.props;
 ---
 
 <!DOCTYPE html>
 <html lang="en" class="h-full scroll-smooth">
-  <Head {...props} />
+  <Head title={title} description={excerpt} keywords={keywords} image={cover} />
   <body
     class="flex min-h-full flex-col bg-white subpixel-antialiased transition-colors duration-300 dark:bg-zinc-900"
   >
     <header class="print:hidden">
       <Navbar />
     </header>
-    <slot />
+    <main class="container space-y-8 py-12 lg:space-y-12 lg:py-24">
+      <section class="space-y-2 lg:space-y-4">
+        <div>
+          <p class="text-center text-xs font-light text-zinc-600 dark:text-zinc-400 lg:text-sm">
+            {collection}
+          </p>
+          <h1
+            class="text-center text-4xl font-bold tracking-tight text-blue-600 dark:text-blue-400 xl:text-5xl"
+          >
+            {title}
+          </h1>
+        </div>
+        <p class="prose prose-zinc mx-auto text-center dark:prose-invert lg:prose-lg">
+          {excerpt}
+        </p>
+        <p class="text-center text-sm text-zinc-600 dark:text-zinc-400 lg:text-base">
+          {createdAt} &middot; 5 minute read
+        </p>
+      </section>
+      <img src={cover} alt={title} class="aspect-video w-full rounded-lg" />
+      <article
+        class="prose prose-zinc mx-auto prose-headings:scroll-m-20 prose-a:font-semibold prose-a:decoration-blue-600 prose-a:underline-offset-4 hover:prose-a:decoration-2 prose-pre:rounded-lg prose-img:rounded-lg dark:prose-invert dark:prose-a:decoration-blue-400 lg:prose-lg lg:prose-headings:scroll-m-24"
+      >
+        <slot />
+      </article>
+    </main>
     <Footer />
   </body>
 </html>
