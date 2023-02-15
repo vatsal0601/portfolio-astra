@@ -1,3 +1,12 @@
+---
+title: "What is React?"
+excerpt: "What is react?, why would you use it?, some prerequisites and your first react app"
+cover: "/images/cover/what-is-react.jpg"
+createdAt: "1st Jan 2023"
+keywords: "What is react"
+collection: "React"
+---
+
 ## What exactly is React?
 
 React is a library for building User Interfaces (UI).

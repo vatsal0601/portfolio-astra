@@ -1,3 +1,12 @@
+---
+title: "What is React Hooks?"
+excerpt: "What are react hooks, its types and how to use them"
+cover: "/images/cover/react-hooks.png"
+createdAt: "10th Jan 2023"
+keywords: "React Hooks"
+collection: "React"
+---
+
 ## What are React Hooks?
 
 Hooks were introduced in React 16.8 to take full advantage of certain React features before React 16.8 developers were required to write class components. With React Hooks, you can extract stateful logic from a component so it can be tested independently and reused.
@@ -26,17 +35,17 @@ This Hook allows us to perform side-effects like data fetching and state or vari
 import { useEffect, useState } from "react";
 
 const RenderCount = () => {
-	const [counter, setCounter] = useState(0);
+  const [counter, setCounter] = useState(0);
 
-	useEffect(() => {
-		const id = setInterval(() => {
-			setCounter((counter) => counter + 1);
-		}, 1000);
+  useEffect(() => {
+    const id = setInterval(() => {
+      setCounter((counter) => counter + 1);
+    }, 1000);
 
-		return () => clearInterval(id);
-	}, []);
+    return () => clearInterval(id);
+  }, []);
 
-	return <h1>{counter}</h1>;
+  return <h1>{counter}</h1>;
 };
 ```
 
@@ -59,14 +68,14 @@ First, create a context to use our Hook. For example, we make a UserContext get 
 import { createContext } from "react";
 
 const users = {
-	user1: {
-		name: "Sherlock Holmes",
-		occupation: "Detective",
-	},
-	user2: {
-		name: "James Moriarty",
-		occupation: "Professor",
-	},
+  user1: {
+    name: "Sherlock Holmes",
+    occupation: "Detective",
+  },
+  user2: {
+    name: "James Moriarty",
+    occupation: "Professor",
+  },
 };
 
 export const UserContext = createContext(users.user1);
@@ -80,11 +89,11 @@ Every context has a Provider, which allows its children components to subscribe 
 
 ```js
 const App = () => {
-	return (
-		<UserContext.Provider value={users.user1}>
-			<UserProfile />
-		</UserContext.Provider>
-	);
+  return (
+    <UserContext.Provider value={users.user1}>
+      <UserProfile />
+    </UserContext.Provider>
+  );
 };
 ```
 
@@ -115,7 +124,7 @@ useRef returns a mutable object with a single property: current, that stores the
 
 ```js
 {
-	current: ReactElementReference;
+  current: ReactElementReference;
 }
 ```
 
@@ -133,10 +142,10 @@ Now, we can use this Hook to access the input element imperatively by having the
 
 ```js
 return (
-	<div>
-		<input ref={inputRef} type="text" />
-		<button onClick={onButtonClick}>SUBMIT</button>
-	</div>
+  <div>
+    <input ref={inputRef} type="text" />
+    <button onClick={onButtonClick}>SUBMIT</button>
+  </div>
 );
 ```
 
@@ -194,7 +203,7 @@ A "reducer" is a function that accepts a state and an action, then returns a val
 
 ```js
 const reducer = (state, action) => {
-	return state + action;
+  return state + action;
 };
 ```
 
@@ -214,7 +223,7 @@ As mentioned earlier, the Hook optionally takes in a 3rd argument: init. `init` 
 
 ```js
 const init = (initialState) => {
-	return initialState;
+  return initialState;
 };
 ```
 
@@ -227,12 +236,12 @@ import { useCallback } from "react";
 
 // add - before
 const add = () => {
-	setNumber((number) => number + 1);
+  setNumber((number) => number + 1);
 };
 
 // add - after
 const add = useCallback(() => {
-	setNumber((number) => number + 1);
+  setNumber((number) => number + 1);
 }, [number]);
 ```
 
@@ -246,7 +255,7 @@ The `useMemo` is very similar to `useCallback`. But instead of returning a memoi
 import { useMemo } from "react";
 
 const memoizedValue = useMemo(() => {
-	computeExpensiveValue(a, b);
+  computeExpensiveValue(a, b);
 }, [a, b]);
 ```
 

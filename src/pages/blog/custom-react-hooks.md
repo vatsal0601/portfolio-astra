@@ -1,3 +1,12 @@
+---
+title: "What is Custom React Hooks?"
+excerpt: "What are custom react hooks and how to one"
+cover: "/images/cover/custom-react-hooks.png"
+createdAt: "20th Jan 2023"
+keywords: "Custom react hooks"
+collection: "React"
+---
+
 ## What are custom Hooks?
 
 A custom Hook allows you to extract some component's logic into a reusable function. A custom Hook is a JavaScript function whose name starts with use and calls can other Hooks. By creating custom Hooks we are just refactoring our code to make it reusable. If you want to know more about React Hooks you can check my [previous post](/blog/61d5118805c061b0e66894a2) which comprises all the built-in Hooks which React provides.
@@ -32,19 +41,19 @@ Create an async function named fetchData which we will use inside the `useEffect
 
 ```js
 useEffect(() => {
-	const fetchData = async () => {
-		try {
-			setLoading(true);
-			const results = await fetch(url, options);
-			const data = await results.json();
-			setData(data.data);
-		} catch (err) {
-			setError(err.message);
-		} finally {
-			setLoading(false);
-		}
-	};
-	fetchData();
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const results = await fetch(url, options);
+      const data = await results.json();
+      setData(data.data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+  fetchData();
 }, [url, options]);
 ```
 
@@ -60,27 +69,27 @@ Now by putting everything together we get:
 import { useState, useEffect } from "react";
 
 export const useFetch = (url, options) => {
-	const [loading, setLoading] = useState(false);
-	const [data, setData] = useState(null);
-	const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
 
-	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				setLoading(true);
-				const results = await fetch(url, options);
-				const data = await results.json();
-				setData(data.data);
-			} catch (err) {
-				setError(err.message);
-			} finally {
-				setLoading(false);
-			}
-		};
-		fetchData();
-	}, [url, options]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const results = await fetch(url, options);
+        const data = await results.json();
+        setData(data.data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [url, options]);
 
-	return [loading, data, error];
+  return [loading, data, error];
 };
 ```
 
@@ -92,13 +101,13 @@ For using the newly created custom Hook in your app you just have to import and 
 import { useFetch } from "./useFetch";
 
 const App = () => {
-	const [loading, data, error] = useFetch(url, options);
+  const [loading, data, error] = useFetch(url, options);
 
-	if (loading) return <p>Loading...</p>;
+  if (loading) return <p>Loading...</p>;
 
-	if (error) return <p>Oops, someting went wrong {error}</p>;
+  if (error) return <p>Oops, someting went wrong {error}</p>;
 
-	return <p>{JSON.stringify(data)}</p>;
+  return <p>{JSON.stringify(data)}</p>;
 };
 
 export default App;
