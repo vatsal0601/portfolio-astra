@@ -1,21 +1,44 @@
 ---
 export interface Props {
   title: string;
-  body: string;
+  excerpt: string;
+  cover: string;
+  createdAt: string;
+  collection: string;
+  minutesRead: string;
   href: string;
 }
 
-const { href, title, body } = Astro.props;
+const { title, excerpt, cover, createdAt, collection, minutesRead, href } = Astro.props;
 ---
 
-<li class="link-card">
-  <a href={href}>
-    <h2>
-      {title}
-      <span>&rarr;</span>
-    </h2>
-    <p>
-      {body}
-    </p>
+<div>
+  <a href={href} tabindex="-1">
+    <img src={cover} alt={title} class="aspect-video w-full rounded-lg object-cover" />
   </a>
-</li>
+  <div class="space-y-1 py-1 lg:py-3">
+    <span
+      class="rounded-md bg-blue-200 px-1 py-0.5 text-xs font-semibold text-blue-700 lg:px-2 lg:py-1 lg:text-sm"
+    >
+      {collection}
+    </span>
+    <a
+      href={href}
+      class="block text-2xl font-semibold tracking-tight text-zinc-900 transition-colors active:text-blue-600 dark:text-zinc-200 dark:active:text-blue-400 xl:text-3xl"
+    >
+      {title}
+    </a>
+    <p class="prose prose-zinc dark:prose-invert lg:prose-lg">
+      {excerpt}
+    </p>
+    <p class="text-sm font-light text-zinc-600 dark:text-zinc-400 lg:text-base">
+      <span>
+        Published on {createdAt}
+      </span>
+      <span>
+        <span>&bull;</span>
+        <span>{minutesRead}</span>
+      </span>
+    </p>
+  </div>
+</div>

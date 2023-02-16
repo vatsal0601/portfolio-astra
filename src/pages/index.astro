@@ -1,5 +1,8 @@
 ---
 import Layout from "@layouts/Layout.astro";
+import Card from "@components/Card.astro";
+
+const blogs = await Astro.glob("../pages/blog/*.mdx");
 ---
 
 <Layout>
@@ -117,10 +120,25 @@ import Layout from "@layouts/Layout.astro";
         Recent Projects
       </h2>
     </section>
-    <section>
+    <section class="space-y-2 lg:space-y-4">
       <h2 class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-200 xl:text-4xl">
         Recent Blogs
       </h2>
+      <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+        {
+          blogs.map((blog) => (
+            <Card
+              title={blog.frontmatter.title}
+              excerpt={blog.frontmatter.excerpt}
+              cover={blog.frontmatter.cover}
+              createdAt={blog.frontmatter.createdAt}
+              minutesRead={blog.frontmatter.minutesRead}
+              collection={blog.frontmatter.collection}
+              href={blog.url ?? "/"}
+            />
+          ))
+        }
+      </div>
     </section>
     <!-- <section>
       <div class="flex items-center space-x-3">

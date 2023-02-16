@@ -18,7 +18,7 @@ export interface Props {
 }
 
 const {
-  frontmatter: { title, excerpt, cover, createdAt, keywords, collection, minutesRead },
+  frontmatter: { title, excerpt, cover, createdAt, keywords, minutesRead },
 } = Astro.props;
 ---
 
@@ -33,21 +33,16 @@ const {
     </header>
     <main class="container space-y-8 py-12 lg:space-y-12 lg:py-24">
       <section class="space-y-2 lg:space-y-4">
-        <div>
-          <p class="text-center text-xs font-light text-zinc-600 dark:text-zinc-400 lg:text-sm">
-            {collection}
-          </p>
-          <h1
-            class="text-center text-4xl font-bold tracking-tight text-blue-600 dark:text-blue-400 xl:text-5xl"
-          >
-            {title}
-          </h1>
-        </div>
+        <h1
+          class="text-center text-4xl font-bold tracking-tight text-blue-600 dark:text-blue-400 xl:text-5xl"
+        >
+          {title}
+        </h1>
         <p class="prose prose-zinc mx-auto text-center dark:prose-invert lg:prose-lg">
           {excerpt}
         </p>
         <p class="text-center text-sm text-zinc-600 dark:text-zinc-400 lg:text-base">
-          {createdAt} &middot; {minutesRead}
+          {createdAt} &bull; {minutesRead}
         </p>
       </section>
       <img src={cover} alt={title} class="aspect-video w-full rounded-lg" />
