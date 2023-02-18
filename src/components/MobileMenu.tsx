@@ -10,16 +10,7 @@ interface Props {
 
 const MobileMenu: FunctionComponent<Props> = ({ pageLinks }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const backdropRef = useRef<HTMLDivElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!backdropRef.current) return;
-
-    if (isOpen) {
-      backdropRef.current.focus();
-    }
-  }, [isOpen]);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -30,19 +21,10 @@ const MobileMenu: FunctionComponent<Props> = ({ pageLinks }) => {
     return () => document.removeEventListener("click", handleClickOutside);
   });
 
-  const handleKeyPress = (e: JSX.TargetedKeyboardEvent<HTMLDivElement>) => {
-    if (e.key === "Escape") setIsOpen(false);
-  };
-
   return (
     <>
       {isOpen && (
-        <div
-          tabIndex={0}
-          onKeyDown={handleKeyPress}
-          ref={backdropRef}
-          className="fixed inset-0 z-40 bg-zinc-900/50 backdrop-blur focus:outline-none"
-        >
+        <div className="fixed inset-0 z-40 bg-zinc-900/50 backdrop-blur focus:outline-none">
           <div
             ref={modalRef}
             className="z-50 mx-5 mt-5 rounded-lg border border-zinc-200 bg-zinc-50 p-5 text-zinc-600 shadow-lg dark:border-zinc-600 dark:bg-zinc-700 dark:text-zinc-200"
@@ -56,7 +38,7 @@ const MobileMenu: FunctionComponent<Props> = ({ pageLinks }) => {
                 viewBox="0 0 24 24"
                 stroke-width="1.5"
                 stroke="currentColor"
-                className="h-5 w-5 cursor-pointer"
+                className="h-5 w-5 cursor-pointer transition-colors active:text-blue-600 dark:active:text-blue-400"
               >
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
@@ -64,7 +46,10 @@ const MobileMenu: FunctionComponent<Props> = ({ pageLinks }) => {
             <ul className="mt-5 divide-y divide-zinc-200 dark:divide-zinc-600">
               {pageLinks.map(({ name, link }, index) => (
                 <li key={index} className="py-2">
-                  <a href={link} className="transition-colors active:text-blue-600">
+                  <a
+                    href={link}
+                    className="transition-colors active:text-blue-600 dark:active:text-blue-400"
+                  >
                     {name}
                   </a>
                 </li>

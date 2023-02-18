@@ -31,24 +31,26 @@ const {
     <header class="print:hidden">
       <Navbar />
     </header>
-    <main class="container space-y-8 py-12 lg:space-y-12 lg:py-24">
-      <section class="space-y-2 lg:space-y-4">
-        <h1
-          class="text-center text-4xl font-bold tracking-tight text-blue-600 dark:text-blue-400 xl:text-5xl"
+    <main class="container py-12 lg:py-24">
+      <p class="mx-auto mb-2 max-w-prose lg:mb-4 lg:text-lg">
+        <span
+          class="border-l-2 border-zinc-200 pl-2 text-sm font-light text-zinc-600 dark:border-zinc-600 dark:text-zinc-400 lg:text-base"
         >
-          {title}
-        </h1>
-        <p class="prose prose-zinc mx-auto text-center dark:prose-invert lg:prose-lg">
-          {excerpt}
-        </p>
-        <p class="text-center text-sm text-zinc-600 dark:text-zinc-400 lg:text-base">
           {createdAt} &bull; {minutesRead}
-        </p>
-      </section>
-      <img src={cover} alt={title} class="aspect-video w-full rounded-lg" />
+        </span>
+      </p>
       <article
-        class="prose prose-zinc mx-auto prose-headings:scroll-m-20 prose-a:font-semibold prose-a:decoration-blue-600 prose-a:underline-offset-4 hover:prose-a:decoration-2 prose-pre:rounded-lg prose-img:rounded-lg dark:prose-invert dark:prose-a:decoration-blue-400 lg:prose-lg lg:prose-headings:scroll-m-24"
+        class="prose prose-zinc mx-auto prose-a:font-semibold prose-a:decoration-blue-600 prose-a:underline-offset-4 hover:prose-a:decoration-2 prose-pre:rounded-lg prose-img:aspect-video prose-img:w-full prose-img:rounded-lg prose-img:object-cover dark:prose-invert dark:prose-a:decoration-blue-400 lg:prose-lg"
       >
+        <section>
+          <h1 class="text-blue-600 dark:text-blue-400">
+            {title}
+          </h1>
+          <p>
+            {excerpt}
+          </p>
+        </section>
+        <img src={cover} alt={title} />
         <slot />
       </article>
     </main>

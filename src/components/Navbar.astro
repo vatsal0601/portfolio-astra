@@ -15,7 +15,7 @@ const pathname = new URL(Astro.request.url).pathname;
 <nav class="container relative flex items-center justify-between py-4" role="navigation">
   <a
     href="/"
-    class="text-3xl font-bold tracking-tight text-zinc-900 transition-colors active:text-blue-600 dark:text-zinc-200 lg:text-4xl"
+    class="text-3xl font-bold tracking-tight text-zinc-900 transition-colors active:text-blue-600 dark:text-zinc-200 dark:active:text-blue-400 lg:text-4xl"
   >
     <img
       src="/images/misc/vatsal.JPG"
@@ -35,7 +35,7 @@ const pathname = new URL(Astro.request.url).pathname;
               pathname == link
                 ? "text-blue-600 dark:text-blue-400"
                 : "text-zinc-600 dark:text-zinc-400"
-            } text-sm font-normal transition-colors active:text-blue-600`}
+            } text-sm font-normal transition-colors active:text-blue-600 dark:active:text-blue-400`}
           >
             {name}
           </a>
