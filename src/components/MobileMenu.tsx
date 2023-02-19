@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "preact/hooks";
-import type { FunctionComponent, JSX } from "preact";
+import type { FunctionComponent } from "preact";
 
 interface Props {
   pageLinks: {
@@ -11,6 +11,14 @@ interface Props {
 const MobileMenu: FunctionComponent<Props> = ({ pageLinks }) => {
   const [isOpen, setIsOpen] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.documentElement.classList.add("overflow-y-hidden");
+      return;
+    }
+    document.documentElement.classList.remove("overflow-y-hidden");
+  });
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
