@@ -1,20 +1,10 @@
-import { useEffect, useState } from "preact/hooks";
+import { useState } from "preact/hooks";
 import type { FunctionComponent } from "preact";
 
 type theme = "light" | "dark";
 
 const ThemeToggle: FunctionComponent = () => {
   const [theme, setTheme] = useState<theme>((localStorage.getItem("theme") as theme) ?? "light");
-
-  useEffect(() => {
-    const theme = localStorage.getItem("theme");
-
-    if (!theme) return;
-
-    if (theme === "dark") {
-      document.documentElement.classList.add("dark");
-    }
-  }, []);
 
   const handleClick = () => {
     const changeTheme = (theme: theme) => {
