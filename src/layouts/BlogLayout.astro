@@ -50,7 +50,11 @@ const {
             {excerpt}
           </p>
         </section>
-        <img src={cover} alt={title} />
+        <img
+          src={cover}
+          alt={title}
+          class="border border-zinc-200 shadow-lg dark:border-zinc-600"
+        />
         <slot />
       </article>
     </main>

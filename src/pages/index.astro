@@ -2,7 +2,11 @@
 import Layout from "@layouts/Layout.astro";
 import Card from "@components/Card.astro";
 
-const blogs = await Astro.glob("../pages/blog/*.mdx");
+let blogs = await Astro.glob("../pages/blog/*.mdx");
+let projects = await Astro.glob("../pages/project/*.mdx");
+
+blogs = blogs.slice(0, 3);
+projects = projects.slice(0, 3);
 ---
 
 <Layout>
@@ -115,10 +119,26 @@ const blogs = await Astro.glob("../pages/blog/*.mdx");
         </div>
       </div>
     </section>
-    <section>
+    <section class="space-y-2 lg:space-y-4">
       <h2 class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-200 xl:text-4xl">
         Recent Projects
       </h2>
+      <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+        {
+          projects.map((project) => (
+            <Card
+              type="project"
+              title={project.frontmatter.title}
+              excerpt={project.frontmatter.excerpt}
+              cover={project.frontmatter.cover}
+              createdAt={project.frontmatter.createdAt}
+              href={project.url ?? "/"}
+              github={project.frontmatter.github}
+              link={project.frontmatter.link}
+            />
+          ))
+        }
+      </div>
     </section>
     <section class="space-y-2 lg:space-y-4">
       <h2 class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-200 xl:text-4xl">
@@ -128,6 +148,7 @@ const blogs = await Astro.glob("../pages/blog/*.mdx");
         {
           blogs.map((blog) => (
             <Card
+              type="blog"
               title={blog.frontmatter.title}
               excerpt={blog.frontmatter.excerpt}
               cover={blog.frontmatter.cover}
