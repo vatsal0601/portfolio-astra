@@ -12,7 +12,7 @@ const { title, excerpt, logo, link, github, href } = Astro.props;
 ---
 
 <div
-  class="flex min-h-[24rem] flex-col justify-between rounded-lg border border-zinc-200 p-4 transition-colors dark:border-zinc-600 lg:hover:bg-blue-100 lg:dark:hover:bg-zinc-800"
+  class="flex min-h-[20rem] flex-col justify-between rounded-lg border border-zinc-200 p-4 transition-colors dark:border-zinc-600 lg:min-h-[24rem] lg:hover:bg-blue-100 lg:dark:hover:bg-zinc-800"
 >
   <div>
     <div
@@ -32,12 +32,14 @@ const { title, excerpt, logo, link, github, href } = Astro.props;
       </p>
     </div>
   </div>
-  <div class="grid grid-cols-2 gap-4">
+  <div
+    class="grid grid-cols-2 gap-4 text-sm font-medium text-zinc-600 dark:text-zinc-400 lg:text-base"
+  >
     <a
       href={link}
       target="_blank"
       rel="noopener noreferrer"
-      class="group inline-flex items-center gap-2 text-zinc-600 dark:text-zinc-400"
+      class="group inline-flex items-center gap-2"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -63,7 +65,7 @@ const { title, excerpt, logo, link, github, href } = Astro.props;
       href={github}
       target="_blank"
       rel="noopener noreferrer"
-      class="group inline-flex items-center gap-2 text-zinc-600 dark:text-zinc-400"
+      class="group inline-flex items-center gap-2"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
