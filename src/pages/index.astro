@@ -1,16 +1,29 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import BlogCard from "@components/BlogCard.astro";
+import ProjectCard from "@components/ProjectCard.astro";
 
 let blogs = await Astro.glob("../pages/blog/*.mdx");
 let projects = await Astro.glob("../pages/project/*.mdx");
 
 blogs = blogs.slice(0, 3);
-projects = projects.slice(0, 3);
+projects = projects.slice(0, 4);
 
 const workExperience = [
-  { logo: "", name: "Toddle", designation: "ASE Intern", from: "2023", to: "current" },
-  { logo: "", name: "Nine Light Times", designation: "SDE Intern", from: "2022", to: "2022" },
+  {
+    logo: "/images/misc/toddle.png",
+    name: "Toddle",
+    designation: "ASE Intern",
+    from: "2023",
+    to: "current",
+  },
+  {
+    logo: "/images/misc/nlt.png",
+    name: "Nine Lights Technologies",
+    designation: "SDE Intern",
+    from: "2022",
+    to: "2022",
+  },
   {
     logo: "/images/misc/goodwind.png",
     name: "GoodWind",
@@ -131,48 +144,8 @@ const workExperience = [
         </div>
       </div>
     </section>
-    <!-- <section class="space-y-2 lg:space-y-4">
-      <h2 class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-200 xl:text-4xl">
-        Recent Projects
-      </h2>
-      <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
-        {
-          projects.map((project) => (
-            <Card
-              type="project"
-              title={project.frontmatter.title}
-              excerpt={project.frontmatter.excerpt}
-              cover={project.frontmatter.cover}
-              createdAt={project.frontmatter.createdAt}
-              href={project.url ?? "/"}
-              github={project.frontmatter.github}
-              link={project.frontmatter.link}
-            />
-          ))
-        }
-      </div>
-    </section> -->
-    <section class="grid grid-cols-1 gap-4 lg:grid-cols-5 lg:gap-8">
-      <div class="space-y-2 lg:col-span-3 lg:space-y-4">
-        <h2 class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-200 xl:text-4xl">
-          Recent Blogs
-        </h2>
-        <div class="space-y-2 lg:space-y-4">
-          {
-            blogs.map((blog) => (
-              <BlogCard
-                title={blog.frontmatter.title}
-                excerpt={blog.frontmatter.excerpt}
-                createdAt={blog.frontmatter.createdAt}
-                minutesRead={blog.frontmatter.minutesRead}
-                collection={blog.frontmatter.collection}
-                href={blog.url ?? "/"}
-              />
-            ))
-          }
-        </div>
-      </div>
-      <div class="lg:col-span-2">
+    <section class="grid grid-cols-1 gap-8 lg:grid-cols-5 lg:gap-16">
+      <div class="lg:col-span-2 lg:col-start-4">
         <div class="space-y-8 rounded-lg border border-zinc-200 p-4 dark:border-zinc-600">
           <p
             class="flex items-center gap-2 text-lg font-semibold text-zinc-900 dark:text-zinc-200 lg:text-xl"
@@ -197,11 +170,13 @@ const workExperience = [
             {
               workExperience.map(({ logo, name, designation, from, to }) => (
                 <p class="flex items-center gap-2">
-                  <img
-                    src={logo}
-                    alt={name}
-                    class="aspect-square w-10 flex-shrink-0 rounded-full border border-zinc-200 bg-zinc-50 object-cover p-0.5 dark:border-zinc-600 dark:bg-zinc-700 lg:w-12 lg:p-1"
-                  />
+                  <span class="aspect-square w-10 flex-shrink-0 rounded-full border border-zinc-200 bg-zinc-50 p-0.5 dark:border-zinc-600 dark:bg-zinc-700 lg:w-12 lg:p-1">
+                    <img
+                      src={logo}
+                      alt={name}
+                      class="h-full w-full rounded-full bg-white object-scale-down"
+                    />
+                  </span>
                   <span class="flex-grow">
                     <span class="block text-zinc-900 dark:text-zinc-200 lg:text-lg">{name}</span>
                     <span class="flex flex-col text-sm font-light text-zinc-600 dark:text-zinc-400 lg:flex-row lg:items-center lg:justify-between lg:text-base">
@@ -237,6 +212,44 @@ const workExperience = [
               ></path>
             </svg>
           </a>
+        </div>
+      </div>
+      <div class="space-y-2 lg:col-span-3 lg:row-start-1 lg:space-y-4">
+        <h2 class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-200 xl:text-4xl">
+          Recent Blogs
+        </h2>
+        <div class="space-y-2 lg:space-y-4">
+          {
+            blogs.map((blog) => (
+              <BlogCard
+                title={blog.frontmatter.title}
+                excerpt={blog.frontmatter.excerpt}
+                createdAt={blog.frontmatter.createdAt}
+                minutesRead={blog.frontmatter.minutesRead}
+                collection={blog.frontmatter.collection}
+                href={blog.url ?? "/"}
+              />
+            ))
+          }
+        </div>
+      </div>
+      <div class="space-y-2 lg:col-span-3 lg:space-y-4">
+        <h2 class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-200 xl:text-4xl">
+          Recent Projects
+        </h2>
+        <div class="grid grid-cols-1 gap-2 lg:grid-cols-2 lg:gap-4">
+          {
+            projects.map((project) => (
+              <ProjectCard
+                logo={project.frontmatter.cover}
+                title={project.frontmatter.title}
+                excerpt={project.frontmatter.excerpt}
+                href={project.url ?? "/"}
+                github={project.frontmatter.github}
+                link={project.frontmatter.link}
+              />
+            ))
+          }
         </div>
       </div>
     </section>
