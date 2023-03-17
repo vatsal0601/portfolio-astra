@@ -35,12 +35,13 @@ const pathname = new URL(Astro.request.url).pathname;
           <a
             href={link}
             class={`${
-              pathname == link
+              (pathname.length === 1 && name === "Home") ||
+              (pathname.includes(link) && link.length > 1)
                 ? "text-blue-600 dark:text-blue-400"
                 : "text-zinc-600 dark:text-zinc-400"
             } text-sm font-normal transition-colors active:text-blue-600 dark:active:text-blue-400`}
           >
-            {name} ({pathname})
+            {name}
           </a>
         </li>
       ))
