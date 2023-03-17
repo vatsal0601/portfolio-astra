@@ -4,10 +4,20 @@ import BlogCard from "@components/BlogCard.astro";
 import ProjectCard from "@components/ProjectCard.astro";
 
 let blogs = await Astro.glob("../pages/blog/*.mdx");
-let projects = await Astro.glob("../pages/project/*.mdx");
+
+blogs = blogs.sort(
+  (a, b) =>
+    new Date(b.frontmatter.createdAt) - new Date(a.frontmatter.createdAt)
+);
+
+import * as chattgator from "../pages/project/chattgator.mdx";
+import * as digiwall from "../pages/project/digiwall.mdx";
+import * as woork from "../pages/project/wooork.mdx";
+import * as studier from "../pages/project/studier.mdx";
+
+let projects = [chattgator, digiwall, woork, studier];
 
 blogs = blogs.slice(0, 3);
-projects = projects.slice(0, 4);
 
 const workExperience = [
   {
@@ -22,14 +32,14 @@ const workExperience = [
     name: "Nine Lights Technologies",
     designation: "SDE Intern",
     from: "2022",
-    to: "2022",
+    to: "2022 (3 mo.)",
   },
   {
     logo: "/images/misc/goodwind.png",
     name: "GoodWind",
     designation: "SDE Intern",
     from: "2021",
-    to: "2021",
+    to: "2021 (3 mo.)",
   },
 ];
 ---
@@ -43,13 +53,15 @@ const workExperience = [
         class="aspect-square h-32 rounded-full border-2 border-blue-600 object-cover p-1 shadow-lg dark:border-blue-400 sm:h-56 sm:p-2 lg:h-72 lg:place-self-center"
       />
       <div class="space-y-2 lg:space-y-4">
-        <h1 class="text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-200 xl:text-5xl">
+        <h1
+          class="text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-200 xl:text-5xl"
+        >
           Frontend developer, student, and noob gamer.
         </h1>
         <p class="prose prose-zinc dark:prose-invert lg:prose-lg">
-          Hi, I'm Vatsal. A frontend developer, currently studying at Nirma University. This is my
-          personal website, where you will find all the stuff I am currently doing and thinking
-          about. <a
+          Hi, I'm Vatsal. A frontend developer, currently studying at Nirma
+          University. This is my personal website, where you will find all the
+          stuff I am currently doing and thinking about. <a
             href="/about"
             class="inline-flex items-center gap-1 font-medium text-blue-600 underline-offset-2 hover:decoration-2 dark:text-blue-400"
           >
@@ -71,7 +83,11 @@ const workExperience = [
           </a>
         </p>
         <div class="flex items-center gap-4 pt-2">
-          <a target="_blank" rel="noopener noreferrer" href="https://github.com/vatsal0601">
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://github.com/vatsal0601"
+          >
             <svg
               stroke="currentColor"
               fill="currentColor"
@@ -105,7 +121,11 @@ const workExperience = [
               ></path>
             </svg>
           </a>
-          <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/vatsal0601">
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://twitter.com/vatsal0601"
+          >
             <svg
               stroke="currentColor"
               fill="currentColor"
@@ -146,7 +166,9 @@ const workExperience = [
     </section>
     <section class="grid grid-cols-1 gap-8 lg:grid-cols-5 lg:gap-16">
       <div class="lg:col-span-2 lg:col-start-4 lg:row-span-2">
-        <div class="space-y-8 rounded-lg border border-zinc-200 p-4 dark:border-zinc-600">
+        <div
+          class="space-y-8 rounded-lg border border-zinc-200 p-4 dark:border-zinc-600"
+        >
           <p
             class="flex items-center gap-2 text-lg font-semibold text-zinc-900 dark:text-zinc-200 lg:text-xl"
           >
@@ -178,7 +200,9 @@ const workExperience = [
                     />
                   </span>
                   <span class="flex-grow">
-                    <span class="block text-zinc-900 dark:text-zinc-200 lg:text-lg">{name}</span>
+                    <span class="block text-zinc-900 dark:text-zinc-200 lg:text-lg">
+                      {name}
+                    </span>
                     <span class="flex flex-col text-sm font-light text-zinc-600 dark:text-zinc-400 lg:flex-row lg:items-center lg:justify-between lg:text-base">
                       <span>{designation}</span>
                       <span>
@@ -215,7 +239,9 @@ const workExperience = [
         </div>
       </div>
       <div class="space-y-2 lg:col-span-3 lg:row-start-1 lg:space-y-4">
-        <h2 class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-200 xl:text-4xl">
+        <h2
+          class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-200 xl:text-4xl"
+        >
           Recent Blogs
         </h2>
         <div class="space-y-2 lg:space-y-4">
@@ -232,16 +258,37 @@ const workExperience = [
             ))
           }
         </div>
+        <a
+          href="/blog"
+          class="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 py-2 px-4 text-sm font-semibold text-zinc-50 transition-colors active:bg-blue-700 dark:bg-blue-500 dark:active:bg-blue-600 lg:px-6 lg:text-base"
+        >
+          <span>View more</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="h-4 w-4 lg:h-5 lg:w-5"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
+          </svg>
+        </a>
       </div>
       <div class="space-y-2 lg:col-span-3 lg:space-y-4">
-        <h2 class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-200 xl:text-4xl">
+        <h2
+          class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-200 xl:text-4xl"
+        >
           Recent Projects
         </h2>
         <div class="grid grid-cols-1 gap-2 lg:grid-cols-2 lg:gap-4">
           {
             projects.map((project) => (
               <ProjectCard
-                logo={project.frontmatter.cover}
+                logo={project.frontmatter.logo}
                 title={project.frontmatter.title}
                 excerpt={project.frontmatter.excerpt}
                 href={project.url ?? "/"}
@@ -251,6 +298,25 @@ const workExperience = [
             ))
           }
         </div>
+        <a
+          href="/project"
+          class="mt-4 inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 py-2 px-4 text-sm font-semibold text-zinc-50 transition-colors active:bg-blue-700 dark:bg-blue-500 dark:active:bg-blue-600 lg:px-6 lg:text-base"
+        >
+          <span>View more</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="h-4 w-4 lg:h-5 lg:w-5"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
+          </svg>
+        </a>
       </div>
     </section>
   </main>

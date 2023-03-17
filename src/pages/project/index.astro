@@ -3,6 +3,11 @@ import Layout from "@layouts/Layout.astro";
 import Card from "@components/Card.astro";
 
 let projects = await Astro.glob("../../pages/project/*.mdx");
+
+projects = projects.sort(
+  (a, b) =>
+    new Date(b.frontmatter.createdAt) - new Date(a.frontmatter.createdAt)
+);
 ---
 
 <Layout
@@ -14,12 +19,15 @@ let projects = await Astro.glob("../../pages/project/*.mdx");
     <section class="prose prose-zinc dark:prose-invert lg:prose-lg">
       <h1>Things I've made trying to put my dent in the universe.</h1>
       <p>
-        I've worked on tons of little projects over the years but these are the ones that I'm most
-        proud of. Many of them are open-source, so if you see something that piques your interest,
-        check out the code and contribute if you have ideas for how it can be improved.
+        I've worked on tons of little projects over the time. Many of them are
+        open-source, so if you see something that piques your interest, check
+        out the code and contribute if you have ideas for how it can be
+        improved.
       </p>
     </section>
-    <section class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+    <section
+      class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-8"
+    >
       {
         projects.map((project) => (
           <Card

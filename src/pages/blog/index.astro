@@ -3,6 +3,11 @@ import Layout from "@layouts/Layout.astro";
 import Card from "@components/Card.astro";
 
 let blogs = await Astro.glob("../../pages/blog/*.mdx");
+
+blogs = blogs.sort(
+  (a, b) =>
+    new Date(b.frontmatter.createdAt) - new Date(a.frontmatter.createdAt)
+);
 ---
 
 <Layout
@@ -12,13 +17,15 @@ let blogs = await Astro.glob("../../pages/blog/*.mdx");
 >
   <main class="container space-y-2 py-12 lg:space-y-4 lg:py-24">
     <section class="prose prose-zinc dark:prose-invert lg:prose-lg">
-      <h1>Writing on software design, company building, and the aerospace industry.</h1>
+      <h1>Writing on React, design systems and some other stuff.</h1>
       <p>
-        All of my long-form thoughts on programming, leadership, product design, and more, collected
-        in one place.
+        All of my long-form thoughts on programming, react, design systems, and
+        more, collected in one place.
       </p>
     </section>
-    <section class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+    <section
+      class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-8"
+    >
       {
         blogs.map((blog) => (
           <Card
